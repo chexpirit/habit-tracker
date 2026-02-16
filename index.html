@@ -86,20 +86,18 @@
                         :key="habit.key"
                         class="habit-item"
                     >
-                        <label>{{ habit.label }}:</label>
-                        <div class="habit-toggle">
-                            <button
-                                @click="toggleHabit(habit.key, true)"
-                                :class="['toggle-btn', 'yes-btn', { active: dayData.habits[habit.key] === true }]"
-                            >
-                                ✓ Sí
-                            </button>
-                            <button
-                                @click="toggleHabit(habit.key, false)"
-                                :class="['toggle-btn', 'no-btn', { active: dayData.habits[habit.key] === false }]"
-                            >
-                                ✗ No
-                            </button>
+                        <div class="habit-switch-container">
+                            <span class="habit-emoji">{{ habit.emoji }}</span>
+                            <label :for="habit.key" class="habit-label">{{ habit.label }}</label>
+                            <label class="switch">
+                                <input
+                                    type="checkbox"
+                                    :id="habit.key"
+                                    :checked="dayData.habits[habit.key] === true"
+                                    @change="toggleHabitSwitch(habit.key, $event)"
+                                />
+                                <span class="slider"></span>
+                            </label>
                         </div>
                     </div>
                 </div>

@@ -25,12 +25,12 @@ createApp({
                 { value: 5, emoji: '😄', label: 'Muy bien' }
             ],
             booleanHabits: [
-                { key: 'trabajo', label: 'Trabajo' },
-                { key: 'amor', label: 'Amor' },
-                { key: 'escritura', label: 'Escritura' },
-                { key: 'lectura', label: 'Lectura' },
-                { key: 'ajedrez', label: 'Ajedrez' },
-                { key: 'gimnasio', label: 'Gimnasio' }
+                { key: 'trabajo', label: 'Trabajo', emoji: '💻' },
+                { key: 'amor', label: 'Amor', emoji: '❤️' },
+                { key: 'escritura', label: 'Escritura', emoji: '✍️' },
+                { key: 'lectura', label: 'Lectura', emoji: '📘' },
+                { key: 'ajedrez', label: 'Ajedrez', emoji: '♟️' },
+                { key: 'gimnasio', label: 'Gimnasio', emoji: '🏋️' }
             ],
             googleScriptUrl: 'https://script.google.com/macros/s/AKfycbwdGPe9rUNAEjLhfl64LebzsrDc1PacscJYmLL2HWLMV-cxgDpub8WEycKhQ4CADP7ZTw/exec',
             isSyncing: false,
@@ -93,6 +93,10 @@ createApp({
             } else {
                 this.dayData.habits[habitKey] = value;
             }
+            this.saveDayData();
+        },
+        toggleHabitSwitch(habitKey, event) {
+            this.dayData.habits[habitKey] = event.target.checked ? true : null;
             this.saveDayData();
         },
         async saveDayData() {
