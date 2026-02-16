@@ -44,13 +44,35 @@ body {
     border: 1px solid var(--border-color);
 }
 
+header {
+    position: relative;
+}
+
 header h1 {
     text-align: center;
     color: var(--text-primary);
-    margin-bottom: 24px;
+    margin-bottom: 8px;
     font-size: 1.8em;
     font-weight: 600;
     letter-spacing: -0.02em;
+}
+
+.spreadsheet-link {
+    display: block;
+    text-align: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.spreadsheet-link:hover {
+    color: var(--accent-primary);
+    background: var(--bg-secondary);
 }
 
 /* Sync spinner (fixed position, no layout shift) */
