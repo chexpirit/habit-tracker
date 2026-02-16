@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker de Hábitos</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <header>
+                <h1>Tracker de Hábitos</h1>
+                <div v-if="syncStatus" class="sync-status" :class="{ error: syncStatus.includes('Error') }">
+                    {{ syncStatus }}
+                </div>
+            </header>
+
+            <div class="date-navigation">
+                <button @click="previousDay" class="nav-btn">◀ Anterior</button>
+                <input
+                    type="date"
+                    v-model="currentDate"
+                    @change="loadDayData"
+                    class="date-picker"
+                />
+                <button @click="nextDay" class="nav-btn">Siguiente ▶</button>
+                <button @click="goToToday" class="today-btn">Hoy</button>
+            </div>
+
+            <div class="current-date">
+                <h2>{{ formattedDate }}</h2>
+            </div>
+
+            <div class="day-title">
+                <label for="title">Título del día:</label>
+                <input
+                    type="text"
+                    id="title"
+                    v-model="dayData.title"
+                    @input="saveDayData"
+                    placeholder="Ej: Un día productivo"
+                    class="title-input"
+                />
+            </div>
+
+            <div class="notes-section">
+                <label for="notes">Notas del día (Markdown):</label>
+                <textarea
+                    id="notes"
+                    v-model="dayData.notes"
+                    @input="saveDayData"
+                    placeholder="Escribe tus notas aquí... Puedes usar markdown"
+                    class="notes-textarea"
+                    rows="8"
+                ></textarea>
+                <div class="notes-preview">
+                    <h3>Vista previa:</h3>
+                    <div v-html="renderedNotes" class="markdown-content"></div>
+                </div>
+            </div>
+
+            <div class="habits-section">
+                <h3>Hábitos del día</h3>
+
+                <div class="habit-item mood-item">
+                    <label>Mood:</label>
+                    <div class="mood-selector">
+                        <button
+                            v-for="mood in moods"
+                            :key="mood.value"
+                            @click="setMood(mood.value)"
+                            :class="['mood-btn', { active: dayData.habits.mood === mood.value }]"
+                            :title="mood.label"
+                        >
+                            {{ mood.emoji }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="habits-grid">
+                    <div
+                        v-for="habit in booleanHabits"
+                        :key="habit.key"
+                        class="habit-item"
+                    >
+                        <label>{{ habit.label }}:</label>
+                        <div class="habit-toggle">
+                            <button
+                                @click="toggleHabit(habit.key, true)"
+                                :class="['toggle-btn', 'yes-btn', { active: dayData.habits[habit.key] === true }]"
+                            >
+                                ✓ Sí
+                            </button>
+                            <button
+                                @click="toggleHabit(habit.key, false)"
+                                :class="['toggle-btn', 'no-btn', { active: dayData.habits[habit.key] === false }]"
+                            >
+                                ✗ No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
