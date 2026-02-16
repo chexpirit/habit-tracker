@@ -13,10 +13,15 @@
         <div class="container">
             <header>
                 <h1>Tracker de Hábitos</h1>
-                <div v-if="syncStatus" class="sync-status" :class="{ error: syncStatus.includes('Error') }">
-                    {{ syncStatus }}
-                </div>
             </header>
+
+            <!-- Sync indicator (fixed position) -->
+            <div v-if="isSyncing" class="sync-spinner">
+                <div class="spinner"></div>
+            </div>
+            <div v-if="syncStatus && !isSyncing" class="sync-toast" :class="{ error: syncStatus.includes('Error') }">
+                {{ syncStatus }}
+            </div>
 
             <div class="date-navigation">
                 <button @click="previousDay" class="nav-btn">◀ Anterior</button>
@@ -44,22 +49,6 @@
                     placeholder="Ej: Un día productivo"
                     class="title-input"
                 />
-            </div>
-
-            <div class="notes-section">
-                <label for="notes">Notas del día (Markdown):</label>
-                <textarea
-                    id="notes"
-                    v-model="dayData.notes"
-                    @input="saveDayData"
-                    placeholder="Escribe tus notas aquí... Puedes usar markdown"
-                    class="notes-textarea"
-                    rows="8"
-                ></textarea>
-                <div class="notes-preview">
-                    <h3>Vista previa:</h3>
-                    <div v-html="renderedNotes" class="markdown-content"></div>
-                </div>
             </div>
 
             <div class="habits-section">
@@ -100,6 +89,22 @@
                             </label>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <label for="notes">Notas del día (Markdown):</label>
+                <textarea
+                    id="notes"
+                    v-model="dayData.notes"
+                    @input="saveDayData"
+                    placeholder="Escribe tus notas aquí... Puedes usar markdown"
+                    class="notes-textarea"
+                    rows="8"
+                ></textarea>
+                <div class="notes-preview">
+                    <h3>Vista previa:</h3>
+                    <div v-html="renderedNotes" class="markdown-content"></div>
                 </div>
             </div>
         </div>

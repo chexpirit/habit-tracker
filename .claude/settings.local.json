@@ -12,7 +12,8 @@
       "Bash(gh auth login:*)",
       "Bash(gh browse:*)",
       "Bash(C:UsersLuis GómezAppDataLocalProgramsGitHub CLIgh.exe api repos/chexpirit/habit-tracker/pages -X POST -f source[branch]=main -f source[path]=/)",
-      "Bash(start index.html)"
+      "Bash(start index.html)",
+      "Bash(git commit:*)"
     ]
   }
 }
