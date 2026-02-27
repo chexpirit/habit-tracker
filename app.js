@@ -25,7 +25,7 @@ createApp({
                 { value: 5, emoji: '😄', label: 'Muy bien' }
             ],
             booleanHabits: [
-                { key: 'trabajo', label: 'Trabajo', emoji: '💻' },
+                { key: 'trabajo', label: 'Trabajo', emoji: '🖥️' },
                 { key: 'amor', label: 'Amor', emoji: '❤️' },
                 { key: 'escritura', label: 'Escritura', emoji: '✍️' },
                 { key: 'lectura', label: 'Lectura', emoji: '📘' },
